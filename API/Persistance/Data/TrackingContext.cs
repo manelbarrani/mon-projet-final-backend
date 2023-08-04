@@ -9,6 +9,8 @@ namespace Persistance.Data
         public TrackingContext(DbContextOptions<TrackingContext> options) : base(options) { }
 
         public DbSet<Navigator> Navigators { get; set; }
+        public DbSet<Shipment> Shipments { get; set; }
+        public DbSet<Vehicule> Vehicules { get; set; }
 
 
         /// <summary>
