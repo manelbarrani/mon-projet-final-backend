@@ -24,10 +24,16 @@ namespace Application.Features.VehiculeFeature.Queries
             }
             public async Task<ResponseHttp> Handle(GetVehiculeByIdQuery request, CancellationToken cancellationToken)
             {
-                var shipment = await _trackingContext.Shipments
+                var Vehicule = await _trackingContext.Vehicules
                     .Where(x => x.Id == request.Id)
+                    .Select (x=>new
+                    {
+                        Id = x.Id,
+                        Vrn=x.VRN,
+                        Vin=x.VIN
+                    })
                     .SingleOrDefaultAsync(cancellationToken);
-                if (shipment == null)
+                if (Vehicule == null)
                     return new ResponseHttp()
                     {
                         Resultat = "Not Found",
@@ -36,7 +42,7 @@ namespace Application.Features.VehiculeFeature.Queries
                     };
                 return new ResponseHttp()
                 {
-                    Resultat = shipment,
+                    Resultat = Vehicule,
                     Status = 200,
                     Fail_Messages = "None"
                 };

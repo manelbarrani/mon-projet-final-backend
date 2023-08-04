@@ -7,16 +7,14 @@ namespace Application.Features.VehiculeFeature.Commands
 {
     public class AddVehiculeCommand : IRequest<ResponseHttp>
     {
-        public AddVehiculeCommand(string name, string companyName, string contact)
+        public AddVehiculeCommand(string vRN, string vIN)
         {
-            Name = name;
-            CompanyName = companyName;
-            Contact = contact;
+            VRN = vRN;
+            VIN = vIN;
         }
 
-        public string Name { get; set; }
-        public string CompanyName { get; set; }
-        public string Contact { get; set; }
+        public string VRN { get; set; }
+        public string VIN { get; set; }
 
         public class AddVehiculeCommandHandler : IRequestHandler<AddVehiculeCommand, ResponseHttp>
         {
@@ -31,6 +29,8 @@ namespace Application.Features.VehiculeFeature.Commands
             {
                 var vehicule = new Vehicule()
                 {
+                    VIN = request.VIN,
+                    VRN = request.VRN
                 };
                 _trackingContext.Vehicules.Add(vehicule);
                 await _trackingContext.SaveChangesAsync(cancellationToken);

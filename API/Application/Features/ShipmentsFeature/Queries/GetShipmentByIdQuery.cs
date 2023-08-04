@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Features.ShipmentsFeature.Dto;
+using Application.Interfaces;
 using Application.Setting;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,21 @@ namespace Application.Features.ShipmentsFeature.Queries
             {
                 var shipment = await _trackingContext.Shipments
                     .Where(x => x.Id == request.Id)
+                    .Select (x=> new ShipmentDto()
+                    {
+                        Id = x.Id,
+                        Status = x.Status,
+                        StartAdr = x.StartAdr,
+                        Start_X = x.Start_X,
+                        Start_Y = x.Start_Y,
+                        CreatedDate = x.CreatedDate,
+                        Number = x.Number,
+                        Destination_X =x.Destination_X,
+                        DestinationAdr= x.DestinationAdr,
+                        Destination_Y= x.Destination_Y,
+                        NavigatorId = x.NavigatorId,
+                        VehiculeId = x.VehiculeId,
+                    })
                     .SingleOrDefaultAsync(cancellationToken);
                 if (shipment == null)
                     return new ResponseHttp()

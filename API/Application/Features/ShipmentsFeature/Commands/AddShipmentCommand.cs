@@ -7,16 +7,16 @@ namespace Application.Features.ShipmentsFeature.Commands
 {
     public class AddShipmentCommand : IRequest<ResponseHttp>
     {
-        public AddShipmentCommand(string name, string companyName, string contact)
-        {
-            Name = name;
-            CompanyName = companyName;
-            Contact = contact;
-        }
 
-        public string Name { get; set; }
-        public string CompanyName { get; set; }
-        public string Contact { get; set; }
+        public string Number { get; set; }
+        public string Start_X { get; set; }
+        public string Start_Y { get; set; }
+        public string Destination_X { get; set; }
+        public string Destination_Y { get; set; }
+        public string StartAdr { get; set; }
+        public string DestinationAdr { get; set; }
+        public Guid NavigatorId { get; set; }
+        public Guid VehiculeId { get; set; }
 
         public class AddShipmentCommandHandler : IRequestHandler<AddShipmentCommand, ResponseHttp>
         {
@@ -31,6 +31,17 @@ namespace Application.Features.ShipmentsFeature.Commands
             {
                 var shipment = new Shipment()
                 {
+                    StartAdr = request.StartAdr,
+                    Start_X= request.Start_X,
+                    Start_Y= request.Start_Y,
+                    Status="1",
+                    DestinationAdr = request.DestinationAdr,
+                    Destination_X = request.Destination_X,
+                    Destination_Y= request.Destination_Y,
+                    NavigatorId = request.NavigatorId,
+                    VehiculeId = request.VehiculeId,
+                    Number =request.Number
+                    
                 };
                 _trackingContext.Shipments.Add(shipment);
                 await _trackingContext.SaveChangesAsync(cancellationToken);

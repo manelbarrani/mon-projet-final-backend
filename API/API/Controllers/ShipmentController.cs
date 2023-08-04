@@ -1,6 +1,4 @@
-﻿using Application.Features.NavigatorFeature.Commands;
-using Application.Features.NavigatorFeature.Queries;
-using Application.Features.ShipmentsFeature.Commands;
+﻿using Application.Features.ShipmentsFeature.Commands;
 using Application.Features.ShipmentsFeature.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -32,9 +30,24 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpGet("[action]")]
+        public async Task<ActionResult> GetShipmentDetailsById(Guid id)
+        {
+            GetShipmentDetailsQuery qr = new(id);
+            var result = await _mediator.Send(qr);
+
+            return Ok(result);
+        }
+        [HttpGet("[action]")]
         public async Task<ActionResult> GetListShipments()
         {
             var result = await _mediator.Send(new GetListShipmentQuery());
+
+            return Ok(result);
+        }
+        [HttpGet("[action]")]
+        public async Task<ActionResult> GetListShipmentsByStatus(int Status)
+        {
+            var result = await _mediator.Send(new GetListShipmentByStatusQuery(Status));
 
             return Ok(result);
         }
