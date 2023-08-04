@@ -43,7 +43,7 @@ namespace Application.Features.ShipmentsFeature.Queries
                         
                     })
                     .OrderByDescending(x => x.CreatedDate)
-                    .FirstAsync(cancellationToken);
+                    .FirstOrDefaultAsync(cancellationToken);
                 if(shimpent == null)
                     return new ResponseHttp()
                     {

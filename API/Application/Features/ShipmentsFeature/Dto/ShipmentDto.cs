@@ -16,8 +16,6 @@ namespace Application.Features.ShipmentsFeature.Dto
         public string Start_Y { get; set; }
         public string Destination_X { get; set; }
         public string Destination_Y { get; set; }
-        public string CurrentPosition_X { get; set; }
-        public string CurrentPosition_Y { get; set; }
         public string StartAdr { get; set; }
         public string DestinationAdr { get; set; }
         public Guid NavigatorId { get; set; }
