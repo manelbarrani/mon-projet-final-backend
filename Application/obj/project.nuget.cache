@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lKaU/c+6E0040YL1NoBvONf6bl9NWZ7Guye3pCjdbqI8M/LIlMmXPvBNOSSHT7SQ7dvazABOJVUnW87rJ4y7sA==",
+  "dgSpecHash": "HZ0LXnTnqR7y7sp6VmFUUjYwy9d3Xfb2UOFym6MFJHDbytxi+oc6XGRhTRiPtSUq569cqMKrJCjsEfOvnId8TQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Rouissi Mahdi\\source\\repos\\trackingfreightsure\\API\\Application\\Application.csproj",
+  "projectFilePath": "C:\\Users\\Rouissi Mahdi\\Source\\Repos\\trackingfrieghtsure\\Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rouissi Mahdi\\.nuget\\packages\\mediatr\\11.1.0\\mediatr.11.1.0.nupkg.sha512",
     "C:\\Users\\Rouissi Mahdi\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",

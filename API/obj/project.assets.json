@@ -1373,11 +1373,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rouissi Mahdi\\source\\repos\\trackingfreightsure\\API\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\Rouissi Mahdi\\Source\\Repos\\trackingfrieghtsure\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\Rouissi Mahdi\\source\\repos\\trackingfreightsure\\API\\API\\API.csproj",
+      "projectPath": "C:\\Users\\Rouissi Mahdi\\Source\\Repos\\trackingfrieghtsure\\API\\API.csproj",
       "packagesPath": "C:\\Users\\Rouissi Mahdi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rouissi Mahdi\\source\\repos\\trackingfreightsure\\API\\API\\obj\\",
+      "outputPath": "C:\\Users\\Rouissi Mahdi\\Source\\Repos\\trackingfrieghtsure\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Rouissi Mahdi\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1394,8 +1394,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Rouissi Mahdi\\source\\repos\\trackingfreightsure\\API\\Persistance\\Persistance.csproj": {
-              "projectPath": "C:\\Users\\Rouissi Mahdi\\source\\repos\\trackingfreightsure\\API\\Persistance\\Persistance.csproj"
+            "C:\\Users\\Rouissi Mahdi\\Source\\Repos\\trackingfrieghtsure\\Persistance\\Persistance.csproj": {
+              "projectPath": "C:\\Users\\Rouissi Mahdi\\Source\\Repos\\trackingfrieghtsure\\Persistance\\Persistance.csproj"
             }
           }
         }
