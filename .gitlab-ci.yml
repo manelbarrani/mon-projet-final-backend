@@ -3,7 +3,6 @@ stages:
   - build
   - deploy
 
-
 sonarscan:
   extends: .sonarscan
 
