@@ -30,7 +30,7 @@ include:
     file: 'gitlab/helm/deploy_hidden_qualif.yaml'
   - project: 'library/stages'
     ref: master
-    file: 'gitlab/sonar/sonarscan_hidden.yaml'
+    file: 'gitlab/sonar/sonarscan_hidden_dotnet.yaml'
   - project: 'library/stages'
     ref: master
     file: 'gitlab/migration/migration_hidden.yaml'
