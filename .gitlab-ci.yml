@@ -6,7 +6,6 @@ stages:
 sonarscan:
   extends: .sonarscan
 
-
 build:
   extends: .build
 build-init:
