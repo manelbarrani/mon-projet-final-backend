@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\API",
+    "\\Application",
+    "\\Application\\Interfaces"
   ],
-  "SelectedNode": "\\C:\\Users\\Rouissi Mahdi\\Source\\Repos\\trackingfrieghtsure",
+  "SelectedNode": "\\Application\\Interfaces\\ITrackingContext.cs",
   "PreviewInSolutionExplorer": false
 }

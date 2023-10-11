@@ -1,4 +1,5 @@
 using API.Extension;
+using Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 
@@ -9,13 +10,16 @@ IConfiguration configuration = builder.Configuration;
 
 builder.Services.ConfigureContext(configuration);
 builder.Services.AddControllers();
+builder.Services.AddMemoryCache();
+builder.Services.AddSignalR();
+builder.Services.AddHostedService<ReminderJobWorker>();
 builder.Services.AddCors(options => options.AddPolicy("cors", builder =>
 {
     builder
-    //.WithOrigins("http://localhost:4200", "https://ftusa-web.dev2.addinn-group.com")
-    .AllowAnyOrigin()
+    .WithOrigins("http://localhost:4200", "https://ftusa-web.dev2.addinn-group.com")
     .AllowAnyMethod()
-    .AllowAnyHeader();
+    .AllowAnyHeader()
+    .AllowCredentials();
 }));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -36,6 +40,10 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<NotificationHub>("/Notif");
+});
 
 app.Run();
