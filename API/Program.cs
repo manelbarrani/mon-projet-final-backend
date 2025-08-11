@@ -1,49 +1,88 @@
 using API.Extension;
-using Application.Services;
+using Application.Mappings;
 using MediatR;
-using Microsoft.AspNetCore.Builder;
+using Application.Interfaces;
+using Persistance.Repositories;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Configuration
 IConfiguration configuration = builder.Configuration;
 
+// Contexte et Repositories
 builder.Services.ConfigureContext(configuration);
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+// MediatR, AutoMapper
+builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
+
+// Contrôleurs
 builder.Services.AddControllers();
+
+// Services additionnels
+builder.Services.RetryExtension(configuration);
 builder.Services.AddMemoryCache();
 builder.Services.AddSignalR();
-builder.Services.AddHostedService<ReminderJobWorker>();
-builder.Services.AddCors(options => options.AddPolicy("cors", builder =>
+
+// CORS
+var allowedOrigins = new[]
 {
-    builder
-    .WithOrigins("http://localhost:4200", "https://ftusa-web.dev2.addinn-group.com")
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .AllowCredentials();
-}));
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    "http://localhost:4200",
+    "https://ftusa-web.dev2.addinn-group.com"
+};
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("cors", policy =>
+    {
+        policy.WithOrigins(allowedOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
+// ? Swagger configuration claire
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.ConfigureSwagger();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Produit Web Api",
+        Version = "v1",
+        Description = "API de gestion des produits (CRUD)"
+    });
+
+    // Pour regrouper les endpoints sous le nom du controller
+    options.TagActionsBy(api =>
+    {
+        return new[] { api.GroupName ?? api.ActionDescriptor.RouteValues["controller"] };
+    });
+
+    options.DocInclusionPredicate((docName, apiDesc) => true);
+});
 
 var app = builder.Build();
-app.UseRouting();
-// Configure the HTTP request pipeline.
-app.UseCors("cors");
+
+// Middlewares
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Produit Web Api v1");
+        c.DocumentTitle = "Documentation API Produit";
+    });
 }
 
 app.UseHttpsRedirection();
-
+app.UseRouting();
+app.UseCors("cors");
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-    endpoints.MapHub<NotificationHub>("/Notif");
-});
+// Contrôleurs
+app.MapControllers();
 
 app.Run();
