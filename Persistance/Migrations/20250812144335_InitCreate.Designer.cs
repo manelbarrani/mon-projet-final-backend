@@ -12,8 +12,8 @@ using Persistance.Data;
 namespace Persistance.Migrations
 {
     [DbContext(typeof(DematContext))]
-    [Migration("20250723131517_deuxieme")]
-    partial class Deuxieme
+    [Migration("20250812144335_InitCreate")]
+    partial class InitCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,6 +130,57 @@ namespace Persistance.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tests");
+                });
+
+            modelBuilder.Entity("Domain.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTimeOffset?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }
