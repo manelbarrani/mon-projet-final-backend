@@ -2,7 +2,7 @@ using API.Extension;
 using Application.Interfaces;
 using Application.Mappings;
 using MediatR;
-using Microsoft.EntityFrameworkCore; // nécessaire pour Migrate()
+using Microsoft.EntityFrameworkCore; // nÃ©cessaire pour Migrate()
 using Microsoft.OpenApi.Models;
 using Persistance.Repositories;
 
@@ -19,7 +19,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
-// Contrôleurs
+// ContrÃ´leurs
 builder.Services.AddControllers();
 
 // Services additionnels
@@ -89,7 +89,7 @@ app.UseRouting();
 app.UseCors("cors");
 app.UseAuthorization();
 
-// Contrôleurs
+// ContrÃ´leurs
 app.MapControllers();
 
 app.Run();
