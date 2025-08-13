@@ -24,6 +24,8 @@ namespace Persistance.Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DematContext).Assembly);
             modelBuilder.Entity<Test>().HasKey(t => new { t.Id});
 
+            modelBuilder.Entity<Product>().ToTable("Products");
+
         }
 
         /// <summary>

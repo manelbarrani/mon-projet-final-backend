@@ -1,9 +1,10 @@
 using API.Extension;
+using Application.Interfaces;
 using Application.Mappings;
 using MediatR;
-using Application.Interfaces;
-using Persistance.Repositories;
+using Microsoft.EntityFrameworkCore; // nécessaire pour Migrate()
 using Microsoft.OpenApi.Models;
+using Persistance.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
 
 // Contexte et Repositories
-builder.Services.ConfigureContext(configuration);
+builder.Services.ConfigureContext(configuration); // Assurez-vous que ConfigureContext configure bien DematContext
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 // MediatR, AutoMapper
@@ -44,7 +45,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-// ? Swagger configuration claire
+// Swagger configuration
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -55,7 +56,6 @@ builder.Services.AddSwaggerGen(options =>
         Description = "API de gestion des produits (CRUD)"
     });
 
-    // Pour regrouper les endpoints sous le nom du controller
     options.TagActionsBy(api =>
     {
         return new[] { api.GroupName ?? api.ActionDescriptor.RouteValues["controller"] };
@@ -65,6 +65,13 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+
+// Appliquer les migrations automatiquement pour DematContext
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<Persistance.Data.DematContext>();
+    db.Database.Migrate();
+}
 
 // Middlewares
 if (app.Environment.IsDevelopment())
